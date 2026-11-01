@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ha">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EdutechHub - Educational Technology & AI Learning Platform</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f1f5f9;
+      color: #1e293b;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ====== 1. SPLASH / LOADING SCREEN ====== */
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #1e3a5f 0%, #0a192f 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 999999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    #splash-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .splash-logo-box {
+      background: #ffffff;
+      padding: 16px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .splash-logo-box svg {
+      width: 60px;
+      height: 60px;
+      stroke: #0284c7;
+    }
+    .splash-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+    .splash-title span {
+      color: #38bdf8;
+    }
+    .splash-subtitle {
+      font-size: 14px;
+      color: #94a3b8;
+      letter-spacing: 0.5px;
+      margin-bottom: 25px;
+    }
+    .loader-bar {
+      width: 200px;
+      height: 4px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+    .loader-progress {
+      width: 100%;
+      height: 100%;
+      background: #38bdf8;
+      border-radius: 999px;
+      animation: loadAnim 1.3s ease-in-out forwards;
+    }
+    @keyframes loadAnim {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(0); }
+    }
+
+    /* ====== 2. APP NAVIGATION & HEADER ====== */
+    header {
+      background: #0a192f;
+      color: white;
+      text-align: center;
+      padding: 24px 15px 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand-title {
+      font-size: 22px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+    .brand-title span {
+      color: #38bdf8;
+    }
+    .btn-ai-launch {
+      background: #0284c7;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ====== 3. COURSES SECTIONS (LEVEL 100 - 400) ====== */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 25px 15px 60px;
+    }
+    .level-container {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid #e2e8f0;
+    }
+    .level-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: #0a192f;
+      border-bottom: 2px solid #38bdf8;
+      padding-bottom: 8px;
+      margin-bottom: 18px;
+    }
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 15px;
+    }
+    .course-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .course-card h4 {
+      font-size: 15px;
+      color: #0f172a;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .course-card p {
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 14px;
+    }
+    .btn-download {
+      text-decoration: none;
+      background: #0284c7;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 14px;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    /* ====== 4. YOUTUBE SECTION ====== */
+    .youtube-container {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid #e2e8f0;
+    }
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* ====== 5. AI CHAT MODAL & DRAWER ====== */
+    .ai-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 100000;
+      align-items: center;
+      justify-content: center;
+    }
+    .ai-modal.open {
+      display: flex;
+    }
+    .ai-window {
+      width: 95%;
+      max-width: 900px;
+      height: 88vh;
+      background: #ffffff;
+      border-radius: 14px;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+    }
+    .chat-sidebar {
+      width: 260px;
+      background: #0a192f;
+      color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+      transition: transform 0.3s ease;
+    }
+    .chat-sidebar.collapsed {
+      display: none;
+    }
+    .sidebar-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .btn-new-chat {
+      background: #0284c7;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    .history-list {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .history-item {
+      padding: 10px 12px;
+      background: #1e293b;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #cbd5e1;
+    }
+    .history-item:hover {
+      background: #334155;
+    }
+    .btn-clear-history {
+      background: transparent;
+      color: #f87171;
+      border: 1px solid #ef4444;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .chat-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #f8fafc;
+      position: relative;
+    }
+    .chat-header {
+      padding: 14px 18px;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .chat-header h3 {
+      font-size: 17px;
+      color: #0a192f;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .ai-msg {
+      max-width: 85%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 15px;
+      line-height: 1.6;
+      word-wrap: break-word;
+    }
+    .ai-msg.bot {
+      background: #ffffff;
+      color: #1e293b;
+      align-self: flex-start;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .ai-msg.user {
+      background: #0284c7;
+      color: #ffffff;
+      align-self: flex-end;
+    }
+    .thinking-box {
+      font-size: 14px;
+      font-style: italic;
+      color: #64748b;
+      padding: 0 20px 8px;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.5; }
+      50% { opacity: 1; }
+      100% { opacity: 0.5; }
+    }
+    .chat-input-area {
+      padding: 12px 16px;
+      background: #ffffff;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      gap: 10px;
+    }
+    #ai-prompt-input {
+      flex: 1;
+      padding: 12px 14px;
+      font-size: 15px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      outline: none;
+    }
+    #ai-submit-btn {
+      background: #0284c7;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .icon-btn {
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. SPLASH / LOADING SCREEN -->
+  <div id="splash-screen">
+    <div class="splash-logo-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+      </svg>
+    </div>
+    <div class="splash-title">Edutech<span>Hub</span></div>
+    <div class="splash-subtitle">Learn · Grow · Build Your Future</div>
+    <div class="loader-bar">
+      <div class="loader-progress"></div>
+    </div>
+  </div>
+
+  <!-- 2. HEADER DA MAƁALLIN BUƊE AI -->
+  <header>
+    <div class="header-content">
+      <div class="brand-title">Edutech<span>Hub</span></div>
+      <button id="open-ai-btn" class="btn-ai-launch">
+        <span>✨</span> AI Assistant
+      </button>
+    </div>
+  </header>
+
+  <!-- 3. MAIN CONTENT: COURSES (KASHI 1 ZUWA 4) DA YOUTUBE -->
+  <main>
+
+    <!-- LEVEL 100 -->
+    <section class="level-container" id="level-100">
+      <div class="level-title">Level 100 Courses</div>
+      <div class="courses-grid">
+        <div class="course-card">
+          <h4>EDT 101: Introduction to Educational Technology</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+        <div class="course-card">
+          <h4>EDU 101: History of Education</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+        <div class="course-card">
+          <h4>GST 101: Use of English I</h4>
+          <p>Status: Compulsory | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEVEL 200 -->
+    <section class="level-container" id="level-200">
+      <div class="level-title">Level 200 Courses</div>
+      <div class="courses-grid">
+        <div class="course-card">
+          <h4>EDT 201: Principles of Instructional Media</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+        <div class="course-card">
+          <h4>EDT 203: Computer in Education</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+        <div class="course-card">
+          <h4>EDU 201: Educational Psychology</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEVEL 300 -->
+    <section class="level-container" id="level-300">
+      <div class="level-title">Level 300 Courses</div>
+      <div class="courses-grid">
+        <div class="course-card">
+          <h4>EDT 301: Instructional Systems Design</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+        <div class="course-card">
+          <h4>EDT 303: Graphics and Photography in Education</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+        <div class="course-card">
+          <h4>EDU 301: Teaching Practice (TP)</h4>
+          <p>Status: Compulsory | Units: 3</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEVEL 400 (KASHI NA HUƊU) -->
+    <section class="level-container" id="level-400">
+      <div class="level-title">Level 400 Courses</div>
+      <div class="courses-grid">
+        <div class="course-card">
+          <h4>EDT 401: Advanced Instructional Design</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+        <div class="course-card">
+          <h4>EDT 403: Emerging Technologies in Education</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+        <div class="course-card">
+          <h4>EDT 405: Production of Low-Cost Instructional Media</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+        <div class="course-card">
+          <h4>EDT 499: Research Project / Seminar</h4>
+          <p>Status: Compulsory | Units: 6</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SASHEN YOUTUBE LEARNING -->
+    <section class="youtube-container" id="youtube-section">
+      <div class="level-title">EdutechHub YouTube Lectures & Podcast</div>
+      <p style="font-size: 14px; color: #64748b; margin-bottom: 10px;">
+        Kalli darussan bidiyo da tattaunawa ta musamman akan Educational Technology:
+      </p>
+      <div class="video-wrapper">
+        <iframe 
+          src="https://www.youtube.com/embed/videoseries?list=PLbpi6ZahtOH6Bv3p_A2Lw97i8b3zJ5p2_" 
+          title="EdutechHub YouTube Video" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+
+  </main>
+  <!-- ================= 4. ALLON HIRA NA AI MODAL ================= -->
+  <div id="ai-chat-modal" class="ai-modal">
+    <div class="ai-window">
+      
+      <!-- SIDEBAR NA TARIHIN HIRA (CHAT HISTORY DRAWER) -->
+      <aside id="chat-sidebar" class="chat-sidebar">
+        <div class="sidebar-head">
+          <h4 style="font-size: 15px; font-weight: 600;">Tarihin Hira</h4>
+          <button id="close-sidebar-btn" class="icon-btn" style="color: #94a3b8;">&times;</button>
+        </div>
+        <button id="new-chat-btn" class="btn-new-chat">+ Sabuwar Hira</button>
+        
+        <div id="history-list" class="history-list">
+          <!-- Hirarraki da suka gabata za su shiga nan ta atomatik -->
+        </div>
+
+        <button id="clear-all-history-btn" class="btn-clear-history">Goge Tarihi Duka</button>
+      </aside>
+
+      <!-- BABBAN FILIN CHAT -->
+      <div class="chat-main">
+        <div class="chat-header">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <button id="toggle-sidebar-btn" class="icon-btn" title="Duba Tarihi">&#9776;</button>
+            <div>
+              <h3>EdutechHub AI</h3>
+              <span style="font-size: 12px; color: #10b981; font-weight: 500;">● Online</span>
+            </div>
+          </div>
+          <button id="close-modal-btn" class="icon-btn" style="font-size: 26px;">&times;</button>
+        </div>
+
+        <!-- FILIN DA SAKONNI KE FITOWA -->
+        <div id="chat-messages" class="chat-messages">
+          <div class="ai-msg bot">
+            Sannu! Ni ce EdutechHub AI Study Assistant. Ina da cikakken ilimi a kan Educational Technology, Fasaha, Tarihi, da Ilimin Addini. Me kake son tambaya a yau?
+          </div>
+        </div>
+
+        <!-- ALAMAR THINKING... KAWAI -->
+        <div id="thinking-indicator" class="thinking-box" style="display: none;">
+          Thinking...
+        </div>
+
+        <!-- MAZAUNIN RUBUTA TAMBAYA -->
+        <div class="chat-input-area">
+          <input type="text" id="ai-prompt-input" placeholder="Rubuta tambayarka anan..." autocomplete="off">
+          <button id="ai-submit-btn">Aika</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- ================= 5. JAVASCRIPT LOGIC ================= -->
+  <script>
+    // 1. SPLASH SCREEN: Yana bacewa ta atomatik
+    function dismissSplash() {
+      const splash = document.getElementById('splash-screen');
+      if (splash) {
+        splash.classList.add('hidden');
+        setTimeout(() => splash.remove(), 500);
+      }
+    }
+    window.addEventListener('load', () => setTimeout(dismissSplash, 1200));
+    setTimeout(dismissSplash, 2500); // Kariyar gaggawa idan loading ya dau lokaci
+
+    // 2. MODAL CONTROLS: Bude da Rufe Chat
+    const aiModal = document.getElementById('ai-chat-modal');
+    document.getElementById('open-ai-btn').onclick = () => aiModal.classList.add('open');
+    document.getElementById('close-modal-btn').onclick = () => aiModal.classList.remove('open');
+
+    // 3. SIDEBAR TOGGLE
+    const sidebar = document.getElementById('chat-sidebar');
+    document.getElementById('toggle-sidebar-btn').onclick = () => sidebar.classList.toggle('collapsed');
+    document.getElementById('close-sidebar-btn').onclick = () => sidebar.classList.add('collapsed');
+
+    // 4. CHAT HISTORY (LOCALSTORAGE)
+    let chatHistory = JSON.parse(localStorage.getItem('edutech_history') || '[]');
+    const historyList = document.getElementById('history-list');
+    const messagesBox = document.getElementById('chat-messages');
+
+    function updateHistoryUI() {
+      historyList.innerHTML = '';
+      chatHistory.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'history-item';
+        div.textContent = item.title;
+        div.onclick = () => restoreChat(index);
+        historyList.appendChild(div);
+      });
+    }
+
+    function restoreChat(idx) {
+      const item = chatHistory[idx];
+      messagesBox.innerHTML = `
+        <div class="ai-msg user">${item.prompt}</div>
+        <div class="ai-msg bot">${item.reply}</div>
+      `;
+      sidebar.classList.add('collapsed');
+    }
+
+    document.getElementById('new-chat-btn').onclick = () => {
+      messagesBox.innerHTML = `
+        <div class="ai-msg bot">
+          Sannu! Wannan sabuwar hira ce. Me kake son sani akan Educational Technology, Fasaha, Tarihi, ko Addini?
+        </div>
+      `;
+      sidebar.classList.add('collapsed');
+    };
+
+    document.getElementById('clear-all-history-btn').onclick = () => {
+      if (confirm('Kina son share dukkan tarihin hirarka?')) {
+        chatHistory = [];
+        localStorage.removeItem('edutech_history');
+        updateHistoryUI();
+        document.getElementById('new-chat-btn').click();
+      }
+    };
+
+    // 5. TYPEWRITER EFFECT (RUBUTU MAI GUDANA)
+    function streamText(container, text, speed = 12) {
+      let i = 0;
+      container.textContent = '';
+      const interval = setInterval(() => {
+        if (i < text.length) {
+          container.textContent += text.charAt(i);
+          messagesBox.scrollTop = messagesBox.scrollHeight;
+          i++;
+        } else {
+          clearInterval(interval);
+        }
+      }, speed);
+    }
+
+    // 6. GEMINI API CALL
+    const GEMINI_API_KEY = "SANYA_GEMINI_API_KEY_A_NAN"; // Saka ainihin key dinki anan
+    const thinkingBox = document.getElementById('thinking-indicator');
+    const promptInput = document.getElementById('ai-prompt-input');
+    const submitBtn = document.getElementById('ai-submit-btn');
+
+    async function sendPrompt() {
+      const text = promptInput.value.trim();
+      if (!text) return;
+
+      // Nuna sakon user
+      const userDiv = document.createElement('div');
+      userDiv.className = 'ai-msg user';
+      userDiv.textContent = text;
+      messagesBox.appendChild(userDiv);
+      promptInput.value = '';
+      messagesBox.scrollTop = messagesBox.scrollHeight;
+
+      // Nuna "Thinking..."
+      thinkingBox.style.display = 'block';
+      submitBtn.disabled = true;
+
+      const systemPrompt = "Ke ce EdutechHub AI Study Assistant ga dalibai da malamai na Educational Technology. Kina da kwarewa da sani mai zurfi a fannin Educational Technology, Fasaha, Tarihi, da Addinin Musulunci. Ki bada amsa cikakkiya mai gamsarwa ba tare da katsewa ba. Idan da Hausa aka tambaye ki ki amsa da Hausa mai dadi da girmamawa.";
+
+      try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ role: 'user', parts: [{ text: text }] }],
+            systemInstruction: { parts: [{ text: systemPrompt }] },
+            generationConfig: { maxOutputTokens: 2500, temperature: 0.7 }
+          })
+        });
+
+        const data = await res.json();
+        thinkingBox.style.display = 'none';
+        submitBtn.disabled = false;
+
+        if (data.candidates && data.candidates[0].content.parts[0].text) {
+          const reply = data.candidates[0].content.parts[0].text;
+          const botDiv = document.createElement('div');
+          botDiv.className = 'ai-msg bot';
+          messagesBox.appendChild(botDiv);
+          streamText(botDiv, reply);
+
+          // Ajiye a History
+          chatHistory.unshift({
+            title: text.length > 22 ? text.substring(0, 22) + '...' : text,
+            prompt: text,
+            reply: reply
+          });
+          localStorage.setItem('edutech_history', JSON.stringify(chatHistory));
+          updateHistoryUI();
+        } else {
+          showErrMsg('An samu matsala wajen kwaso amsa.');
+        }
+      } catch (err) {
+        thinkingBox.style.display = 'none';
+        submitBtn.disabled = false;
+        showErrMsg('Hanyar sadarwa ta samu matsala, sake gwadawa.');
+      }
+    }
+
+    function showErrMsg(msg) {
+      const err = document.createElement('div');
+      err.className = 'ai-msg bot';
+      err.style.color = '#ef4444';
+      err.textContent = msg;
+      messagesBox.appendChild(err);
+      messagesBox.scrollTop = messagesBox.scrollHeight;
+    }
+
+    submitBtn.onclick = sendPrompt;
+    promptInput.onkeydown = (e) => { if (e.key === 'Enter') sendPrompt(); };
+
+    // 7. AUTO-UPDATE (DON SHAFI YA SABUNTA GA DUK WANDA KE DA SHI A WAYA)
+    const APP_VERSION = "2.1.0"; // Sauya wannan duk lokacin da aka zuba sabon abu
+    if (localStorage.getItem("app_ver") !== APP_VERSION) {
+      localStorage.setItem("app_ver", APP_VERSION);
+      if ('caches' in window) {
+        caches.keys().then((names) => {
+          names.forEach((name) => caches.delete(name));
+        });
+      }
+    }
+
+    updateHistoryUI();
+  </script>
+</body>
+</html>
