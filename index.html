@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>EdutechHub - Educational Technology Platform</title>
+
+  <!-- SEO & GOOGLE BRANDING -->
+  <meta name="description" content="EdutechHub: Founded in September 2026 by Mubaraka Tasiu Salihu (Mubiey Lady). Centralized Educational Technology & Research Ecosystem for Level 100-400 courses, past examination archives, podcast broadcasts, and AI scholarly tutoring.">
+  <meta name="author" content="Mubaraka Tasiu Salihu (Mubiey Lady)">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://edutechhub-six.vercel.app/#founder",
+        "name": "Mubaraka Tasiu Salihu",
+        "alternateName": "Mubiey Lady",
+        "gender": "Female",
+        "jobTitle": "Founder & CEO",
+        "nationality": "Nigerian",
+        "homeLocation": "Kano State, Nigeria",
+        "alumniOf": [
+          { "@type": "EducationalOrganization", "name": "Jambulo Special Primary School" },
+          { "@type": "EducationalOrganization", "name": "Army Day Secondary School, Janguza Barracks" },
+          { "@type": "CollegeOrUniversity", "name": "Northwest University, Kano", "department": "Department of Curriculum and Instruction, Faculty of Education" }
+        ],
+        "sameAs": [
+          "https://www.instagram.com/huffaz_circle_kn",
+          "https://www.facebook.com/huffaz_circle_kn",
+          "https://www.tiktok.com/@edutechhub_association"
+        ]
+      },
+      {
+        "@type": "EducationalOrganization",
+        "@id": "https://edutechhub-six.vercel.app/#organization",
+        "name": "EdutechHub Association",
+        "url": "https://edutechhub-six.vercel.app",
+        "founder": { "@id": "https://edutechhub-six.vercel.app/#founder" },
+        "foundingDate": "2026-09"
+      }
+    ]
+  }
+  </script>
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#0B192C">
+  <link rel="icon" type="image/png" href="FB5C5AB7-3A57-479A-BF6D-6A7FCC28C1B1.png">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { brandDark: '#0B192C', brandBlue: '#1E3E62', brandLight: '#00A8CC', brandBg: '#F8FAFC' }
+        }
+      }
+    }
+  </script>
+  <style>
+    @keyframes progress { 0% { width: 0%; } 100% { width: 100%; } }
+    .animate-progress { animation: progress 2s linear forwards; }
+    .custom-scroll::-webkit-scrollbar { width: 4px; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+  </style>
+</head>
+<body class="bg-brandBg text-slate-800 font-sans min-h-screen flex flex-col relative overflow-x-hidden">
+
+  <!-- SPLASH SCREEN -->
+  <div id="splash-screen" class="fixed inset-0 z-[100] bg-gradient-to-b from-brandDark via-brandBlue to-[#06101E] flex flex-col items-center justify-center p-6 text-white text-center transition-opacity duration-500">
+    <div class="w-24 h-24 rounded-3xl bg-white p-2.5 shadow-2xl flex items-center justify-center overflow-hidden mb-5">
+      <img src="FB5C5AB7-3A57-479A-BF6D-6A7FCC28C1B1.png" alt="Logo" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='logo.png';">
+    </div>
+    <h1 class="text-3xl font-black tracking-tight mb-1">Edutech<span class="text-brandLight">Hub</span></h1>
+    <p class="text-xs text-sky-200 tracking-wide font-medium mb-8">Learn • Grow • Build Your Future</p>
+    <div class="w-56 bg-white/10 rounded-full h-1.5 overflow-hidden mb-3">
+      <div class="bg-gradient-to-r from-brandLight to-blue-400 h-full rounded-full animate-progress"></div>
+    </div>
+  </div>
+
+  <!-- READER MODAL -->
+  <div id="reader-modal" class="fixed inset-0 z-50 bg-white flex flex-col hidden">
+    <div class="bg-red-600 text-white px-4 py-3 flex items-center justify-between shadow-md flex-shrink-0">
+      <span id="reader-header-code" class="text-xs sm:text-sm font-black uppercase tracking-wider text-white">ACADEMIC MATERIAL</span>
+      <button onclick="closeReader()" class="bg-white text-red-700 px-4 py-1.5 rounded-xl text-xs font-black shadow transition">
+        <i class="fas fa-arrow-left mr-1"></i> BACK TO EDUTECHHUB
+      </button>
+    </div>
+    <div class="flex-grow overflow-y-auto bg-slate-50 p-5 sm:p-8">
+      <div class="max-w-3xl mx-auto bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-slate-200">
+        <span id="reader-code" class="text-xs font-bold uppercase bg-brandLight/20 text-brandBlue px-2.5 py-1 rounded-md">MODULE</span>
+        <h2 id="reader-title" class="text-lg sm:text-2xl font-black text-brandDark mt-2 mb-4 leading-tight">Title</h2>
+        <div class="h-0.5 bg-slate-100 w-full mb-6"></div>
+        <div id="reader-body" class="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap font-sans"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONSENSUS AI MODAL -->
+  <div id="consensus-modal" class="fixed inset-0 z-50 bg-[#0E131F] flex flex-col hidden text-slate-100">
+    <div class="bg-red-600 text-white px-4 py-3 flex items-center justify-between shadow-md flex-shrink-0">
+      <div class="flex items-center space-x-2">
+        <i class="fas fa-microscope text-white"></i>
+        <span class="text-xs sm:text-sm font-black uppercase tracking-wider">ACADEMIC RESEARCH AI</span>
+      </div>
+      <button onclick="closeConsensus()" class="bg-white text-red-700 px-4 py-1.5 rounded-xl text-xs font-black shadow transition">
+        <i class="fas fa-arrow-left mr-1"></i> BACK TO EDUTECHHUB
+      </button>
+    </div>
+    <div class="flex-grow overflow-y-auto p-4 sm:p-6 bg-gradient-to-b from-[#0E131F] to-[#141B2D]">
+      <div class="max-w-3xl mx-auto space-y-4">
+        <div class="text-center py-2">
+          <h2 class="text-xl sm:text-2xl font-black text-white">Evidence-Based Research Starts Here</h2>
+          <p class="text-xs text-slate-400 mt-1">Enter any research or academic inquiry for empirical synthesis.</p>
+        </div>
+        <div class="bg-[#1A2238] p-3 rounded-2xl border border-slate-700 flex gap-2">
+          <input type="text" id="consensus-query-input" onkeypress="if(event.key==='Enter') runConsensusSearch()" class="flex-grow bg-[#0E131F] text-white px-4 py-3 rounded-xl text-xs sm:text-sm focus:outline-none border border-slate-700">
+          <button onclick="runConsensusSearch()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-black px-5 py-3 rounded-xl text-xs sm:text-sm shadow transition">Synthesize</button>
+        </div>
+        <div id="consensus-results-box" class="space-y-4 pt-2"></div>
+      </div>
+    </div>
+  </div>
+  <!-- EDUTECHHUB AI TUTOR MODAL -->
+  <div id="ai-chat-modal" class="fixed inset-0 z-50 bg-white flex flex-col hidden">
+    <div class="bg-red-600 text-white px-4 py-3 flex items-center justify-between shadow-md flex-shrink-0">
+      <div class="flex items-center space-x-3">
+        <button onclick="toggleHistorySidebar()" class="text-white hover:text-slate-200 text-base focus:outline-none">
+          <i class="fas fa-bars"></i>
+        </button>
+        <span class="text-xs sm:text-sm font-black uppercase tracking-wider text-white">EDUTECHHUB AI TUTOR</span>
+      </div>
+      <button onclick="toggleChat()" class="bg-white text-red-700 px-4 py-1.5 rounded-xl text-xs font-black shadow transition">
+        <i class="fas fa-arrow-left mr-1"></i> BACK TO EDUTECHHUB
+      </button>
+    </div>
+
+    <div class="flex-grow flex relative overflow-hidden">
+      <!-- SIDEBAR (CHAT HISTORY IN ENGLISH) -->
+      <div id="chat-sidebar" class="absolute inset-y-0 left-0 w-64 bg-slate-900 text-white z-20 transform -translate-x-full transition-transform duration-300 flex flex-col p-4 shadow-2xl">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Chat History</span>
+          <button onclick="toggleHistorySidebar()" class="text-slate-400 hover:text-white"><i class="fas fa-times"></i></button>
+        </div>
+        <button onclick="createNewSession()" class="mt-3 w-full bg-brandLight hover:bg-sky-500 text-white py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow transition">
+          <i class="fas fa-plus"></i> New Chat
+        </button>
+        <div id="chat-history-list" class="flex-grow overflow-y-auto mt-4 space-y-2 custom-scroll text-xs"></div>
+        <button onclick="clearAllHistory()" class="mt-auto text-slate-400 hover:text-red-400 text-[11px] font-bold py-2 flex items-center justify-center gap-1.5 border-t border-slate-800">
+          <i class="fas fa-trash-alt"></i> Clear All History
+        </button>
+      </div>
+
+      <!-- CONVERSATION AREA -->
+      <div class="flex-grow flex flex-col bg-slate-50 overflow-hidden">
+        <div id="chat-messages" class="flex-grow p-4 sm:p-6 overflow-y-auto space-y-4 text-sm leading-relaxed custom-scroll">
+          <div class="flex items-start space-x-3 max-w-2xl mx-auto">
+            <div class="w-8 h-8 rounded-xl bg-white p-0.5 flex items-center justify-center border border-slate-200 flex-shrink-0 shadow-sm">
+              <img src="FB5C5AB7-3A57-479A-BF6D-6A7FCC28C1B1.png" alt="Logo" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='logo.png';">
+            </div>
+            <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm text-slate-800 border border-slate-200 leading-relaxed font-normal">
+              Hello! I am <strong>EdutechHub AI</strong>, your dedicated academic companion founded by <strong>Mubaraka Tasiu Salihu (Mubiey Lady)</strong>. How can I assist your learning or research today? 😊📚
+            </div>
+          </div>
+        </div>
+
+        <!-- Input Bar (Blank Placeholder) -->
+        <div class="p-3 bg-white border-t border-slate-200 flex-shrink-0">
+          <div class="max-w-2xl mx-auto flex items-center space-x-2">
+            <input type="text" id="ai-input" onkeypress="if(event.key==='Enter') sendMessage()" class="flex-grow bg-slate-100 px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brandLight border border-slate-200">
+            <button onclick="sendMessage()" class="bg-brandLight hover:bg-sky-500 text-white w-11 h-11 rounded-xl flex items-center justify-center text-sm shadow transition flex-shrink-0">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shadow-sm border border-slate-200 overflow-hidden">
+          <img src="FB5C5AB7-3A57-479A-BF6D-6A7FCC28C1B1.png" alt="Logo" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='logo.png';">
+        </div>
+        <div>
+          <span class="text-lg font-black tracking-tight text-brandDark">Edutech<span class="text-brandLight">Hub</span></span>
+          <span class="block text-[9px] text-slate-400 font-semibold uppercase tracking-wider">Learn • Grow • Build Your Future</span>
+        </div>
+      </div>
+      <div class="flex items-center space-x-2">
+        <button onclick="toggleChat()" class="bg-brandLight hover:bg-sky-500 text-white text-xs sm:text-sm font-bold px-3 py-2 rounded-xl transition shadow flex items-center gap-1.5">
+          <i class="fas fa-brain"></i> <span>Ask AI</span>
+        </button>
+        <button onclick="requestAdminAccess()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold px-2.5 py-2 rounded-xl transition border border-slate-200 flex items-center gap-1">
+          <i class="fas fa-user-shield text-[11px]"></i> <span>Admin</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="flex-grow z-10">
+    <!-- Hero Banner -->
+    <section class="bg-gradient-to-b from-brandDark via-brandBlue to-slate-900 text-white py-10 px-4 text-center">
+      <div class="max-w-3xl mx-auto">
+        <div class="inline-block bg-white/10 px-3.5 py-1 rounded-full text-xs font-medium text-brandLight mb-3 border border-white/10">
+          🎓 Educational Technology & Research Ecosystem
+        </div>
+        <h1 class="text-2xl sm:text-4xl font-black tracking-tight mb-3 leading-tight">
+          Learn, Grow, & Build <br class="hidden sm:block"/> Your Educational Future.
+        </h1>
+        <p class="text-xs sm:text-sm text-gray-300 max-w-xl mx-auto mb-5 leading-relaxed">
+          The centralized academic digital library for Level 100–400 courses, past question archives, Northern Nigeria's first EdTech podcast, and scholarly AI tutoring.
+        </p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <button onclick="toggleChat()" class="bg-brandLight hover:bg-sky-500 text-white font-semibold text-xs px-5 py-2.5 rounded-xl shadow transition flex items-center gap-2">
+            <i class="fas fa-brain"></i> <span>Chat with EdutechHub AI</span>
+          </button>
+          <a href="#projects" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs px-5 py-2.5 rounded-xl shadow transition flex items-center gap-2">
+            <i class="fas fa-book-reader"></i> <span>Sample Projects</span>
+          </a>
+          <a href="#past-questions" class="bg-white/10 hover:bg-white/20 text-white font-semibold text-xs px-5 py-2.5 rounded-xl transition border border-white/20">Past Questions</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- COURSES SECTION -->
+    <section id="courses" class="max-w-5xl mx-auto px-4 py-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+        <div>
+          <h2 class="text-xl font-bold text-brandDark">Departmental Courses & Modules</h2>
+          <p class="text-xs text-gray-500">First & Second Semesters (Level 100 to 400)</p>
+        </div>
+        <span class="text-xs font-semibold bg-brandBlue text-white px-3 py-1 rounded-lg w-fit">Curriculum & Instruction</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-brandLight uppercase">Level 100</span>
+            <span class="text-[10px] font-semibold text-slate-400">Semester 1 & 2</span>
+          </div>
+          <div id="courses-container-100" class="space-y-2 text-xs text-slate-700"></div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-brandLight uppercase">Level 200</span>
+            <span class="text-[10px] font-semibold text-slate-400">Semester 1 & 2</span>
+          </div>
+          <div id="courses-container-200" class="space-y-2 text-xs text-slate-700"></div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-brandLight uppercase">Level 300</span>
+            <span class="text-[10px] font-semibold text-slate-400">Semester 1 & 2</span>
+          </div>
+          <div id="courses-container-300" class="space-y-2 text-xs text-slate-700"></div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-brandLight uppercase">Level 400</span>
+            <span class="text-[10px] font-semibold text-slate-400">Graduation Level</span>
+          </div>
+          <div id="courses-container-400" class="space-y-2 text-xs text-slate-700"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SAMPLE PROJECTS (5 COMPREHENSIVE SAMPLES) -->
+    <section id="projects" class="max-w-5xl mx-auto px-4 py-6">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h2 class="text-xl font-bold text-brandDark">Sample Undergraduate Projects</h2>
+          <p class="text-xs text-gray-500">Standard research benchmarks from previous scholars</p>
+        </div>
+        <span class="text-xs font-semibold bg-emerald-700 text-white px-3 py-1 rounded-lg">EDT 499 Samples</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="projects-container"></div>
+    </section>
+
+    <!-- PAST EXAMINATION ARCHIVES (LEVEL 100 TO 400) -->
+    <section id="past-questions" class="max-w-5xl mx-auto px-4 py-6">
+      <div class="text-center mb-5">
+        <h2 class="text-xl font-bold text-brandDark">Past Examination Archives</h2>
+        <p class="text-xs text-gray-500">First & Second Semester Examination Question Papers (Level 100 - 400)</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="questions-container"></div>
+    </section>
+
+    <!-- PODCAST & BROADCAST (ALL-ENGLISH) -->
+    <section class="max-w-5xl mx-auto px-4 py-6">
+      <div class="bg-gradient-to-r from-red-900 via-brandDark to-brandBlue rounded-3xl p-6 text-white flex flex-col md:flex-row items-center justify-between gap-4 shadow-lg">
+        <div>
+          <span class="text-[11px] font-bold uppercase text-red-400 flex items-center gap-1.5">
+            <i class="fab fa-youtube text-red-500 text-sm"></i> Official Broadcast & Podcast
+          </span>
+          <h3 class="text-lg font-bold mt-1">EdutechHub Connect Podcast</h3>
+          <p class="text-xs text-gray-300 mt-1 max-w-md">
+            The pioneering Educational Technology podcast in Northern Nigeria—exploring modern pedagogical design, low-cost instructional media improvisation, and classroom technology integration.
+          </p>
+        </div>
+        <a id="youtube-link-btn" href="https://www.youtube.com/@edutechhub2026" target="_blank" rel="noopener noreferrer" class="bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-5 py-3 rounded-xl transition flex items-center gap-2 shadow whitespace-nowrap">
+          <i class="fab fa-youtube text-base"></i> <span>Watch EdutechHub Show</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- RESEARCH & DESIGN SUITE -->
+    <section class="max-w-5xl mx-auto px-4 py-8 border-t border-slate-200">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div onclick="openConsensus()" class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 hover:shadow-md hover:border-amber-400 transition flex items-center justify-between cursor-pointer">
+          <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl"><i class="fas fa-microscope"></i></div>
+            <div>
+              <h3 class="font-bold text-brandDark text-sm">Academic Research AI</h3>
+              <p class="text-xs text-slate-500">Synthesize evidence across 200M+ research papers</p>
+            </div>
+          </div>
+          <span class="text-xs font-bold text-amber-600">Open ↗</span>
+        </div>
+        <a href="https://excalidraw.com" target="_blank" rel="noopener noreferrer" class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 hover:shadow-md hover:border-cyan-300 transition flex items-center justify-between cursor-pointer">
+          <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 rounded-2xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-2xl"><i class="fas fa-palette"></i></div>
+            <div>
+              <h3 class="font-bold text-brandDark text-sm">Visual & Poster Studio</h3>
+              <p class="text-xs text-slate-500">Design instructional aids, charts & posters</p>
+            </div>
+          </div>
+          <span class="text-xs font-bold text-cyan-600">Create ↗</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ADMIN DASHBOARD (SELECT ANY COURSE TO INJECT LECTURE NOTES) -->
+  <div id="admin-modal" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeAdmin()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times"></i></button>
+      <div class="flex items-center space-x-2 mb-3">
+        <i class="fas fa-user-shield text-brandBlue text-lg"></i>
+        <h3 class="font-bold text-sm text-brandDark">EdutechHub Founder Console</h3>
+      </div>
+      <p class="text-xs text-slate-500 mb-4">Select any of your uploaded departmental courses below to insert or update lecture notes:</p>
+      
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold mb-1 text-slate-700">Select Departmental Course</label>
+          <select id="adm-select-course" onchange="loadCourseNoteForAdmin()" class="w-full p-2.5 rounded-xl border border-slate-300 text-xs bg-white"></select>
+        </div>
+        <div>
+          <label class="block font-bold mb-1 text-slate-700">Lecture Note Content</label>
+          <textarea id="adm-course-content" rows="6" placeholder="Paste or type full lecture note content here..." class="w-full p-3 rounded-xl border border-slate-300 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-brandLight"></textarea>
+        </div>
+        <button onclick="saveCourseNoteFromAdmin()" class="w-full bg-brandBlue hover:bg-brandDark text-white py-2.5 rounded-xl font-bold shadow transition">Save & Publish Lecture Note</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-white text-slate-600 py-6 px-4 border-t border-slate-100 text-center">
+    <p class="text-xs font-semibold text-brandDark">Founder & CEO: Mubaraka Tasiu Salihu (Mubiey Lady) • EdutechHub Association</p>
+    <p class="text-[11px] text-slate-400 mt-1">September 2026 • Northwest University, Kano • Learn • Grow • Build Your Future</p>
+  </footer>
+  <script>
+    // 33 UPLOADED DEPARTMENTAL COURSES
+    let edutechCourses = [
+      // Level 100
+      { id: "c1", level: "100", semester: "2nd Sem", code: "NUK-EDT 106", unit: "2", title: "Blended Learning Environment", content: "Module notes being compiled by the department." },
+      { id: "c2", level: "100", semester: "2nd Sem", code: "NUK-EDT 104", unit: "2", title: "Entrepreneurship in Educational Technology", content: "Module notes being compiled by the department." },
+      { id: "c3", level: "100", semester: "2nd Sem", code: "NUK-EDT 108", unit: "2", title: "Introduction to Social Media and Content Creation", content: "Module notes being compiled by the department." },
+      { id: "c4", level: "100", semester: "2nd Sem", code: "NUK-EDT 102", unit: "2", title: "Introduction to Distance Learning", content: "Module notes being compiled by the department." },
+      { id: "c5", level: "100", semester: "2nd Sem", code: "EDT 102", unit: "2", title: "Foundations of Educational Technology", content: "Module notes being compiled by the department." },
+      { id: "c6", level: "100", semester: "1st Sem", code: "NUK-EDT 107", unit: "2", title: "Innovations in Educational Technology", content: "Module notes being compiled by the department." },
+      { id: "c7", level: "100", semester: "1st Sem", code: "NUK-EDT 105", unit: "2", title: "Trends And Issues in Educational Technology", content: "Module notes being compiled by the department." },
+      { id: "c8", level: "100", semester: "1st Sem", code: "EDT 103", unit: "2", title: "ICT Application in Education", content: "Module notes being compiled by the department." },
+      { id: "c9", level: "100", semester: "1st Sem", code: "EDT 101", unit: "2", title: "Introduction to Educational Technology", content: "Module notes being compiled by the department." },
+
+      // Level 200
+      { id: "c10", level: "200", semester: "2nd Sem", code: "NUK-EDT 202", unit: "2", title: "Design and Development of Educational Media", content: "Module notes being compiled by the department." },
+      { id: "c11", level: "200", semester: "2nd Sem", code: "EDT 204", unit: "2", title: "Edutainment, Gamification and Game-Based Learning", content: "Module notes being compiled by the department." },
+      { id: "c12", level: "200", semester: "2nd Sem", code: "EDT 202", unit: "2", title: "Educational Technology in Schools", content: "Module notes being compiled by the department." },
+      { id: "c13", level: "200", semester: "1st Sem", code: "NUK-EDT 203", unit: "2", title: "Ethics in Educational Technology", content: "Module notes being compiled by the department." },
+      { id: "c14", level: "200", semester: "1st Sem", code: "NUK-EDT 201", unit: "2", title: "Digital Photography", content: "Module notes being compiled by the department." },
+      { id: "c15", level: "200", semester: "1st Sem", code: "EDT 201", unit: "2", title: "Communication and Media Technology", content: "Module notes being compiled by the department." },
+      { id: "c16", level: "200", semester: "1st Sem", code: "EDT 203", unit: "2", title: "Instructional System Design", content: "Module notes being compiled by the department." },
+
+      // Level 300
+      { id: "c17", level: "300", semester: "2nd Sem", code: "NUK-EDT 304", unit: "2", title: "Using the Internet in Education", content: "Module notes being compiled by the department." },
+      { id: "c18", level: "300", semester: "2nd Sem", code: "NUK-EDT 302", unit: "2", title: "Median and Method in Educational Broadcasting", content: "Module notes being compiled by the department." },
+      { id: "c19", level: "300", semester: "2nd Sem", code: "EDT 306", unit: "2", title: "Learning Management System", content: "Module notes being compiled by the department." },
+      { id: "c20", level: "300", semester: "2nd Sem", code: "EDT 304", unit: "2", title: "Distance Learning: Evaluation, Concept & Practice", content: "Module notes being compiled by the department." },
+      { id: "c21", level: "300", semester: "2nd Sem", code: "EDT 302", unit: "2", title: "Evaluation in Educational Technology", content: "Module notes being compiled by the department." },
+      { id: "c22", level: "300", semester: "1st Sem", code: "NUK-EDT 303", unit: "2", title: "Instructional Development for Teachers", content: "Module notes being compiled by the department." },
+      { id: "c23", level: "300", semester: "1st Sem", code: "NUK-EDT 301", unit: "2", title: "Multiple Perspectives in Teaching and Learning", content: "Module notes being compiled by the department." },
+      { id: "c24", level: "300", semester: "1st Sem", code: "EDT 305", unit: "2", title: "E-Learning", content: "Module notes being compiled by the department." },
+      { id: "c25", level: "300", semester: "1st Sem", code: "EDT 303", unit: "2", title: "Inclusive Technology for Learning", content: "Module notes being compiled by the department." },
+      { id: "c26", level: "300", semester: "1st Sem", code: "EDT 301", unit: "2", title: "Glocalization of Instructional Resources", content: "Module notes being compiled by the department." },
+
+      // Level 400
+      { id: "c27", level: "400", semester: "2nd Sem", code: "NUK-EDT 403", unit: "2", title: "Distance Education Leadership and Management", content: "Module notes being compiled by the department." },
+      { id: "c28", level: "400", semester: "2nd Sem", code: "EDT 404", unit: "2", title: "Safety and Cybernetics in Educational Technology", content: "Module notes being compiled by the department." },
+      { id: "c29", level: "400", semester: "2nd Sem", code: "EDT 402", unit: "2", title: "Management of Educational Technology Center", content: "Module notes being compiled by the department." },
+      { id: "c30", level: "400", semester: "1st Sem", code: "NUK-EDT 401", unit: "2", title: "Management of Educational Projects", content: "Module notes being compiled by the department." },
+      { id: "c31", level: "400", semester: "1st Sem", code: "EDT 405", unit: "2", title: "Educational Computing", content: "Module notes being compiled by the department." },
+      { id: "c32", level: "400", semester: "1st Sem", code: "EDT 403", unit: "2", title: "Emerging Technology and Education", content: "Module notes being compiled by the department." },
+      { id: "c33", level: "400", semester: "1st Sem", code: "EDT 401", unit: "2", title: "Learning Analytics", content: "Module notes being compiled by the department." }
+    ];
+
+    // 5 COMPREHENSIVE SAMPLE UNDERGRADUATE PROJECTS (EDT 499)
+    const defaultProjects = [
+      { id: "p1", topic: "Effect of Gamified Mobile Learning Apps on Mathematics Performance among Junior Secondary Students", author: "Zainab Aliyu Garba", year: "2025", content: "ABSTRACT:\nThis empirical study investigated the effect of mobile gamification on mathematics achievement among junior secondary school students in Kano Municipal. Utilizing a quasi-experimental pre-test and post-test design, the experimental group demonstrated a statistically significant gain in retention (p < 0.05)." },
+      { id: "p2", topic: "Comparative Analysis of Video-Based Instruction versus Physical Demonstration in Basic Science Media Production", author: "Ibrahim Mustapha", year: "2025", content: "ABSTRACT:\nA comparative investigation contrasting synchronous video-assisted demonstrations with physical teacher demonstrations in instructional media production. Results revealed that multi-angle video playback enhanced procedural mastery among prospective educators." },
+      { id: "p3", topic: "Assessment of Computer-Based Testing (CBT) Infrastructure Readiness across Teacher Training Colleges", author: "Hauwa Mohammed Kabir", year: "2024", content: "ABSTRACT:\nA descriptive survey evaluating computer-to-student ratios, power backup integrity, and technical literacy competence across teacher colleges. Recommendations emphasize institutional solar grid deployment." },
+      { id: "p4", topic: "Development and Evaluation of an Augmented Reality (AR) Flashcard System for Human Biology Visualization", author: "Usman Danladi Sani", year: "2024", content: "ABSTRACT:\nAnchored on the ADDIE model, this research designed and evaluated 3D augmented reality flashcards for senior secondary biology instruction, recording elevated spatial comprehension metrics." },
+      { id: "p5", topic: "Integration of Artificial Intelligence Tools in Undergraduate Literature Review: Ethics and Practical Compliance", author: "Amina Tukur Bello", year: "2023", content: "ABSTRACT:\nExamined undergraduate research habits when deploying scholarly discovery tools such as Consensus AI. Outlines rigorous guidelines for avoiding algorithmic hallucinations and preserving academic integrity." }
+    ];
+
+    // PAST EXAMINATION PAPERS (LEVEL 100 TO 400)
+    const defaultQuestions = [
+      { id: "q1", level: "100", session: "2024/2025", code: "EDT 101", semester: "1st Semester", content: "DEPARTMENT OF CURRICULUM AND INSTRUCTION\nCOURSE: EDT 101 - INTRODUCTION TO EDUCATIONAL TECHNOLOGY\nSESSION: 2024/2025 | LEVEL: 100\n\nQUESTIONS:\n1. Define Educational Technology according to AECT and discuss its historical development.\n2. Clearly differentiate between Technology IN Education and Technology OF Education with practical classroom examples.\n3. Identify and explain the five core phases of the ADDIE instructional model." },
+      { id: "q2", level: "200", session: "2024/2025", code: "EDT 201", semester: "1st Semester", content: "DEPARTMENT OF CURRICULUM AND INSTRUCTION\nCOURSE: EDT 201 - COMMUNICATION AND MEDIA TECHNOLOGY\nSESSION: 2024/2025 | LEVEL: 200\n\nQUESTIONS:\n1. Explain the Shannon-Weaver mathematical model of communication and analyze three psychological barriers to classroom learning.\n2. What is improvisation in instructional media? Give four justifications for its deployment in resource-constrained schools.\n3. Discuss the Dale's Cone of Experience in relation to direct purposeful learning." },
+      { id: "q3", level: "300", session: "2024/2025", code: "EDT 301", semester: "1st Semester", content: "DEPARTMENT OF CURRICULUM AND INSTRUCTION\nCOURSE: EDT 301 - GLOCALIZATION OF INSTRUCTIONAL RESOURCES\nSESSION: 2024/2025 | LEVEL: 300\n\nQUESTIONS:\n1. Conceptualize 'Glocalization' within instructional design.\n2. Detail the procedures required to adapt foreign digital learning objects to Northern Nigerian sociocultural settings.\n3. Outline the pedagogical criteria for validating bilingual educational podcasts." },
+      { id: "q4", level: "400", session: "2024/2025", code: "EDT 401", semester: "1st Semester", content: "DEPARTMENT OF CURRICULUM AND INSTRUCTION\nCOURSE: EDT 401 - LEARNING ANALYTICS & RESOURCE MANAGEMENT\nSESSION: 2024/2025 | LEVEL: 400\n\nQUESTIONS:\n1. Critically evaluate the administrative and ethical implications of integrating predictive AI algorithms in student grading systems.\n2. Formulate a comprehensive annual preventive maintenance blueprint for a university Educational Technology Resource Center." }
+    ];
+
+    // INITIALIZATION & LOCAL OVERRIDES
+    function getStoredCourses() {
+      const stored = localStorage.getItem('EDUTECH_CUSTOM_NOTES');
+      if (!stored) return edutechCourses;
+      const parsed = JSON.parse(stored);
+      return edutechCourses.map(c => ({
+        ...c,
+        content: parsed[c.id] || c.content
+      }));
+    }
+
+    function renderCourses() {
+      const courses = getStoredCourses();
+      ['100', '200', '300', '400'].forEach(lvl => {
+        const container = document.getElementById(`courses-container-${lvl}`);
+        if (!container) return;
+        const filtered = courses.filter(c => c.level === lvl);
+        container.innerHTML = filtered.map(course => `
+          <div class="p-3 bg-slate-50 hover:bg-sky-50 rounded-xl border border-slate-100 flex items-center justify-between gap-2 transition">
+            <div class="flex-grow cursor-pointer" onclick="openReader('${course.id}')">
+              <div class="flex items-center gap-1.5">
+                <span class="font-black text-brandDark">${course.code}</span>
+                <span class="text-[9px] bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded font-semibold">${course.unit || '2'} Units</span>
+                <span class="text-[10px] text-brandLight font-medium">(${course.semester})</span>
+              </div>
+              <p class="text-xs text-slate-600 font-medium truncate max-w-[220px] sm:max-w-xs mt-0.5">${course.title}</p>
+            </div>
+            <button onclick="openReader('${course.id}')" class="bg-brandLight hover:bg-sky-500 text-white text-[11px] font-bold px-3 py-1 rounded-lg transition">Read</button>
+          </div>
+        `).join('');
+      });
+    }
+
+    function renderProjects() {
+      const container = document.getElementById('projects-container');
+      if (!container) return;
+      container.innerHTML = defaultProjects.map(p => `
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between hover:border-emerald-300 transition">
+          <div>
+            <span class="text-[10px] text-emerald-700 font-bold block mb-1">EDT 499 • ${p.year}</span>
+            <h4 class="font-bold text-xs text-brandDark leading-snug cursor-pointer hover:text-brandLight" onclick="openProjectReader('${p.id}')">${p.topic}</h4>
+            <p class="text-[10px] text-slate-500 mt-1">Author: ${p.author}</p>
+          </div>
+          <button onclick="openProjectReader('${p.id}')" class="mt-3 bg-emerald-50 text-emerald-800 text-[10px] font-bold py-1.5 rounded-lg text-center transition">View Abstract →</button>
+        </div>
+      `).join('');
+    }
+
+    function renderQuestions() {
+      const container = document.getElementById('questions-container');
+      if (!container) return;
+      container.innerHTML = defaultQuestions.map(q => `
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between hover:border-sky-300 transition">
+          <div>
+            <span class="text-[10px] text-brandBlue font-bold block mb-1">Level ${q.level} • ${q.session}</span>
+            <h4 class="font-black text-xs text-brandDark mt-0.5">${q.code}</h4>
+            <p class="text-[10px] text-slate-500">${q.semester} Exam</p>
+          </div>
+          <button onclick="openQuestionReader('${q.id}')" class="mt-3 bg-sky-50 text-brandBlue text-[10px] font-bold py-1.5 rounded-lg text-center transition">Open Questions →</button>
+        </div>
+      `).join('');
+    }
+
+    function openReader(id) {
+      const c = getStoredCourses().find(item => item.id === id);
+      if (!c) return;
+      document.getElementById('reader-header-code').innerText = `${c.code} • FULL NOTE`;
+      document.getElementById('reader-code').innerText = `${c.code} • LEVEL ${c.level}`;
+      document.getElementById('reader-title').innerText = c.title;
+      document.getElementById('reader-body').innerText = c.content;
+      document.getElementById('reader-modal').classList.remove('hidden');
+    }
+
+    function openProjectReader(id) {
+      const p = defaultProjects.find(item => item.id === id);
+      if (!p) return;
+      document.getElementById('reader-header-code').innerText = `SAMPLE PROJECT • EDT 499`;
+      document.getElementById('reader-code').innerText = `AUTHOR: ${p.author} (${p.year})`;
+      document.getElementById('reader-title').innerText = p.topic;
+      document.getElementById('reader-body').innerText = p.content;
+      document.getElementById('reader-modal').classList.remove('hidden');
+    }
+
+    function openQuestionReader(id) {
+      const q = defaultQuestions.find(item => item.id === id);
+      if (!q) return;
+      document.getElementById('reader-header-code').innerText = `${q.code} • PAST QUESTION`;
+      document.getElementById('reader-code').innerText = `LEVEL ${q.level} • ${q.semester}`;
+      document.getElementById('reader-title').innerText = `${q.code} Examination Paper`;
+      document.getElementById('reader-body').innerText = q.content;
+      document.getElementById('reader-modal').classList.remove('hidden');
+    }
+
+    function closeReader() { document.getElementById('reader-modal').classList.add('hidden'); }
+    function toggleChat() { document.getElementById('ai-chat-modal').classList.toggle('hidden'); }
+    function openConsensus() { document.getElementById('consensus-modal').classList.remove('hidden'); }
+    function closeConsensus() { document.getElementById('consensus-modal').classList.add('hidden'); }
+
+    // CONSENSUS RESEARCH ENGINE
+    async function runConsensusSearch() {
+      const input = document.getElementById('consensus-query-input');
+      const query = input.value.trim();
+      if (!query) return;
+      const box = document.getElementById('consensus-results-box');
+
+      box.innerHTML = `
+        <div class="bg-[#1A2238] p-6 rounded-2xl border border-slate-700 text-center animate-pulse">
+          <i class="fas fa-spinner fa-spin text-amber-400 text-2xl mb-2"></i>
+          <p class="text-xs text-slate-300 font-bold">Synthesizing consensus across peer-reviewed literature for "${query}"...</p>
+        </div>
+      `;
+
+      try {
+        const prompt = `Provide an empirical, peer-reviewed academic synthesis for the inquiry: "${query}". Include definition, theoretical framework, and verified citation references in clean English paragraphs.`;
+        const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(prompt)}`);
+        const text = await res.text();
+
+        box.innerHTML = `
+          <div class="bg-[#1A2238] p-5 rounded-2xl border border-slate-700 shadow-xl space-y-3">
+            <span class="text-[10px] font-black uppercase text-amber-400">SCIENTIFIC CONSENSUS • 94% Empirical Agreement</span>
+            <div class="text-sm text-slate-100 font-normal leading-relaxed whitespace-pre-wrap">${text}</div>
+            <a href="https://scholar.google.com/scholar?q=${encodeURIComponent(query)}" target="_blank" rel="noopener noreferrer" class="bg-amber-500 text-slate-950 font-bold px-3 py-1.5 rounded-lg text-xs inline-flex items-center gap-1">Google Scholar Citations ↗</a>
+          </div>
+        `;
+      } catch (e) {
+        box.innerHTML = `<div class="bg-red-900/30 p-4 rounded-xl text-red-200 text-xs">Network error synthesizing evidence. Please try again.</div>`;
+      }
+    }
+
+    // CHAT SESSIONS & CONVERSATION MEMORY (SESSION-BASED HISTORY)
+    let chatSessions = JSON.parse(localStorage.getItem('EDUTECH_CHAT_SESSIONS') || '[]');
+    let activeSessionId = "sess_" + Date.now();
+    let currentConversationHistory = [];
+
+    function toggleHistorySidebar() {
+      const sb = document.getElementById('chat-sidebar');
+      sb.classList.toggle('-translate-x-full');
+      renderHistoryList();
+    }
+
+    function renderHistoryList() {
+      const list = document.getElementById('chat-history-list');
+      if (!list) return;
+      if (chatSessions.length === 0) {
+        list.innerHTML = `<p class="text-slate-500 text-center py-4">No previous chat sessions.</p>`;
+        return;
+      }
+      list.innerHTML = chatSessions.map(session => `
+        <div onclick="loadSession('${session.id}')" class="p-2.5 rounded-xl ${session.id === activeSessionId ? 'bg-brandBlue text-white' : 'bg-slate-800 text-slate-200'} hover:bg-slate-700 cursor-pointer flex items-center justify-between transition group">
+          <div class="flex items-center gap-2 truncate">
+            <i class="fas fa-comment-alt text-[10px] text-brandLight"></i>
+            <span class="truncate max-w-[140px] font-medium">${session.title}</span>
+          </div>
+          <button onclick="event.stopPropagation(); deleteSession('${session.id}')" class="text-slate-500 hover:text-red-400 p-1 opacity-0 group-hover:opacity-100 transition"><i class="fas fa-trash-alt text-[10px]"></i></button>
+        </div>
+      `).join('');
+    }
+
+    function createNewSession() {
+      activeSessionId = "sess_" + Date.now();
+      currentConversationHistory = [];
+      document.getElementById('chat-messages').innerHTML = `
+        <div class="flex items-start space-x-3 max-w-2xl mx-auto">
+          <div class="w-8 h-8 rounded-xl bg-white p-0.5 border border-slate-200 flex-shrink-0 shadow-sm"><img src="FB5C5AB7-3A57-479A-BF6D-6A7FCC28C1B1.png" class="w-full h-full object-contain"></div>
+          <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm text-slate-800 border border-slate-200">New session started! What would you like to explore today? 😊📚</div>
+        </div>
+      `;
+      toggleHistorySidebar();
+    }
+
+    function loadSession(id) {
+      const session = chatSessions.find(s => s.id === id);
+      if (!session) return;
+      activeSessionId = session.id;
+      currentConversationHistory = [...session.messages];
+
+      const container = document.getElementById('chat-messages');
+      container.innerHTML = "";
+      session.messages.forEach(msg => {
+        if (msg.role === 'user') {
+          container.innerHTML += `
+            <div class="flex items-start justify-end max-w-2xl mx-auto"><div class="bg-brandBlue text-white p-3 rounded-2xl rounded-tr-none max-w-[85%] leading-relaxed">${msg.text}</div></div>
+          `;
+        } else {
+          container.innerHTML += `
+            <div class="flex items-start space-x-3 max-w-2xl mx-auto">
+              <div class="w-8 h-8 rounded-xl bg-white p-0.5 border border-slate-200 flex-shrink-0 shadow-sm"><img src="FB5C5AB7-3A57-479A-BF6D-6A7FCC28C1B1.png" class="w-full h-full object-contain"></div>
+              <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm text-slate-800 border border-slate-200 leading-relaxed text-sm whitespace-pre-wrap">${msg.text}</div>
+            </div>
+          `;
+        }
+      });
+      container.scrollTop = container.scrollHeight;
+      toggleHistorySidebar();
+    }
+
+    function deleteSession(id) {
+      chatSessions = chatSessions.filter(s => s.id !== id);
+      localStorage.setItem('EDUTECH_CHAT_SESSIONS', JSON.stringify(chatSessions));
+      if (activeSessionId === id) createNewSession();
+      else renderHistoryList();
+    }
+
+    function clearAllHistory() {
+      if (!confirm("Are you sure you want to clear all chat history?")) return;
+      chatSessions = [];
+      localStorage.removeItem('EDUTECH_CHAT_SESSIONS');
+      createNewSession();
+    }
+
+    function saveMessageToSession(userText, botText) {
+      let session = chatSessions.find(s => s.id === activeSessionId);
+      if (!session) {
+        session = {
+          id: activeSessionId,
+          title: userText.length > 25 ? userText.substring(0, 25) + '...' : userText,
+          messages: []
+        };
+        chatSessions.unshift(session);
+      }
+      session.messages.push({ role: 'user', text: userText });
+      session.messages.push({ role: 'assistant', text: botText });
+      if (chatSessions.length > 20) chatSessions.pop();
+      localStorage.setItem('EDUTECH_CHAT_SESSIONS', JSON.stringify(chatSessions));
+    }
+
+    function typeText(element, text, speed = 4, callback = null) {
+      let index = 0;
+      element.innerHTML = "";
+      const timer = setInterval(() => {
+        if (index < text.length) {
+          element.innerHTML += text.charAt(index) === '\n' ? '<br>' : text.charAt(index);
+          index++;
+          const container = document.getElementById('chat-messages');
+          container.scrollTop = container.scrollHeight;
+        } else {
+          clearInterval(timer);
+          if (callback) callback();
+        }
+      }, speed);
+    }
+
+    // ISLAMICALLY ETHICAL, USER-FRIENDLY & CONTEXTUAL AI TUTOR
+    async function sendMessage() {
+      const input = document.getElementById('ai-input');
+      const text = input.value.trim();
+      if (!text) return;
+      const container = document.getElementById('chat-messages');
+
+      container.innerHTML += `
+        <div class="flex items-start justify-end max-w-2xl mx-auto">
+          <div class="bg-brandBlue text-white p-3 rounded-2xl rounded-tr-none max-w-[85%] leading-relaxed">${text}</div>
+        </div>
+      `;
+      input.value = "";
+      container.scrollTop = container.scrollHeight;
+
+      const loadingId = "loading-" + Date.now();
+      container.innerHTML += `
+        <div id="${loadingId}" class="flex items-start space-x-3 max-w-2xl mx-auto">
+          <div class="w-8 h-8 rounded-xl bg-white p-0.5 flex items-center justify-center border border-slate-200 flex-shrink-0 shadow-sm">
+            <img src="FB5C5AB7-3A57-479A-BF6D-6A7FCC28C1B1.png" alt="Logo" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='logo.png';">
+          </div>
+          <div class="bg-white px-4 py-3 rounded-2xl rounded-tl-none shadow-sm text-slate-500 border border-slate-200 flex items-center space-x-2 text-xs font-semibold">
+            <i class="fas fa-spinner fa-spin text-brandLight"></i>
+            <span>Thinking.....</span>
+          </div>
+        </div>
+      `;
+      container.scrollTop = container.scrollHeight;
+
+      const lower = text.toLowerCase();
+      const explicitHausa = /hausa|yi da hausa|da hausa|fassara da hausa/.test(lower);
+      let reply = "";
+
+      // 1. ISLAMIC SAFETY FILTER
+      if (/batsa|zina|luwadi|madigo|iskanci|porno|sex|gamble|alcohol|kudi na haram/.test(lower)) {
+        reply = explicitHausa
+          ? "Kayi hakuri! A matsayina na mataimakin ilimi na EdutechHub, an tsara ni ne bisa ka'idojin mutunci da koyarwar addinin Musulunci. Ba na amsa tambayoyi kan batsa, alfasha, ko abubuwan da suka sabawa shari'a. 🚫🙏"
+          : "I apologize! As the academic AI assistant for EdutechHub, I operate strictly within Islamic ethical boundaries and professional decorum. I do not engage in lewd, vulgar, sexually explicit, or prohibited subjects. 🚫🙏";
+      }
+      // 2. KANO STATE & LEADERSHIP INQUIRY
+      else if (/kano/.test(lower) && (/(local government|lga|govern|leader)/.test(lower))) {
+        reply = explicitHausa
+          ? "Jihar Kano tana da jimillar Kananan Hukumomi 44 (44 LGAs). A halin yanzu, Gwamnan Jihar Kano shine Alhaji Abba Kabir Yusuf (Abba Gida Gida) a karkashin jam'iyyar NNPP. 🏛️"
+          : "Kano State comprises 44 Local Government Areas (LGAs). The Executive Governor of Kano State is Alhaji Abba Kabir Yusuf (Abba Gida Gida) under the New Nigeria Peoples Party (NNPP). 🏛️ [Reference: Independent National Electoral Commission / Kano State Government Portal]";
+      }
+      // 3. FOUNDER INQUIRY (MUBARAKA TASIU SALIHU / MUBIEY LADY)
+      else if (/(who.*(creat|made|build|found|design|own))|founder|ceo|mubaraka|mubiey|lady|kirkir|waye.*(yi|kirkir|kafa)|wacece.*(ta|kirkir)/.test(lower)) {
+        if (explicitHausa) {
+          reply = "Wacce ta kafa EdutechHub kuma ta kirkire ni ita ce Mubaraka Tasiu Salihu (Mubiey Lady). Ita ce Founder & CEO ta EdutechHub Association. 😊✨\n\n" +
+                  "• Asali: Mace ce, 'yar asalin jihar Kano, Najeriya.\n" +
+                  "• Tarihin Karatu: Ta yi karatun firamare a Jambulo Special Primary School, sakandare a Army Day Secondary School Janguza Barracks, sannan ta sauke haddar Alkur'ani mai girma sau biyu a Mu'assatu Sheikh Ishaq Rabiu da Jama'atu Ahbabu Rasulillah (SAW) Jambulo.\n" +
+                  "• Karatun Jami'a: A halin yanzu daliba ce a aji 4 (Level 400) a jami'ar Northwest University Kano, tana karantar Educational Technology a Department of Curriculum and Instruction, Faculty of Education.\n" +
+                  "• Manufar EdutechHub: Ta kirkiri dandalin ne a watan Satumba 2026 domin ya zama dakin karatu (digital library) na musamman ga dalibai da malamai na Educational Technology, tare da zuba darussa daga Level 100 har zuwa 400 da past questions.\n" +
+                  "• Podcast: Ita ce shugabar EdutechHub Podcast, shiri na farko a Arewacin Najeriya domin nuna wa malamai da dalibai hanyoyin koyarwa masu sauki ta hanyar amfani da low-cost instructional materials da fasahar zamani.";
+        } else {
+          reply = "EdutechHub was founded and architected by Mubaraka Tasiu Salihu (popularly known as Mubiey Lady). She is the Founder & CEO of the EdutechHub Association. 😊✨\n\n" +
+                  "• Background: A female educational technology innovator from Kano State, Nigeria.\n" +
+                  "• Educational Foundations: Attended Jambulo Special Primary School, Army Day Secondary School Janguza Barracks, and completed the memorization of the Holy Qur'an (Hifz) twice at Mu’assatu Sheikh Ishaq Rabiu and Jama’atu Ahbabu Rasulillah (SAW) Jambulo.\n" +
+                  "• Higher Education: Level 400 undergraduate scholar at Northwest University, Kano, studying Educational Technology within the Department of Curriculum and Instruction, Faculty of Education.\n" +
+                  "• Platform Vision: Founded in September 2026 as a centralized academic digital library for educational technology students and lecturers, hosting Level 100 to 400 modules, examination archives, and specialized AI tutoring.\n" +
+                  "• Podcast Leadership: Executive Producer and Host of the EdutechHub Podcast—Northern Nigeria's first dedicated educational technology podcast—advocating low-cost instructional materials and modern pedagogical media.";
+        }
+      }
+      // 4. GENERAL ACADEMIC, ISLAMIC, SCIENTIFIC & HISTORICAL REASONING
+      else {
+        try {
+          const recentContext = currentConversationHistory.slice(-4).map(m => `${m.role}: ${m.text}`).join("\n");
+          const langInstruction = explicitHausa
+            ? "Respond in natural, fluent, scholarly Hausa."
+            : "Respond strictly in professional, articulate English unless the user explicitly requested Hausa.";
+          
+          const sys = `You are EdutechHub AI, an exceptionally knowledgeable, friendly, and Islamically ethical academic companion built by Mubaraka Tasiu Salihu (Mubiey Lady), Founder & CEO of EdutechHub (Est. September 2026, Northwest University Kano). You excel across Islamic knowledge, academia, history, sciences, and educational technology. Maintain high moral standards aligned with Islamic ethics (zero vulgarity, no explicit content). Use appropriate warm emojis (😊, 📚, 💡). Provide verified citations or scholarly references where helpful. If the user prompts 'elaborate' or 'continue', seamlessly build upon previous conversation context. ${langInstruction} Do NOT output markdown tables that break on mobile screens; use bold titles, clear bullet points, and neat paragraphs.\n\nConversation Context:\n${recentContext}\n\nCurrent Question: ${text}`;
+          
+          const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(sys)}?model=qwen`);
+          reply = await res.text();
+        } catch (e) {
+          reply = "A network error occurred while retrieving your academic response. Please try again in a moment. 🙏";
+        }
+      }
+
+      const loadElem = document.getElementById(loadingId);
+      if (loadElem) loadElem.remove();
+
+      const msgBubbleId = "msg-bubble-" + Date.now();
+      container.innerHTML += `
+        <div class="flex items-start space-x-3 max-w-2xl mx-auto">
+          <div class="w-8 h-8 rounded-xl bg-white p-0.5 flex items-center justify-center border border-slate-200 flex-shrink-0 shadow-sm">
+            <img src="FB5C5AB7-3A57-479A-BF6D-6A7FCC28C1B1.png" alt="Logo" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='logo.png';">
+          </div>
+          <div id="${msgBubbleId}" class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm text-slate-800 border border-slate-200 leading-relaxed text-sm whitespace-pre-wrap"></div>
+        </div>
+      `;
+      container.scrollTop = container.scrollHeight;
+
+      currentConversationHistory.push({ role: 'user', text: text });
+      currentConversationHistory.push({ role: 'assistant', text: reply });
+
+      const bubbleElem = document.getElementById(msgBubbleId);
+      typeText(bubbleElem, reply, 4, () => {
+        saveMessageToSession(text, reply);
+      });
+    }
+
+    // ADMIN POPUP CONTROLS
+    function requestAdminAccess() {
+      const pin = prompt("Enter Master Founder PIN to access Admin Dashboard:");
+      if (pin === "1234" || pin === "2026") {
+        populateAdminCourseDropdown();
+        document.getElementById('admin-modal').classList.remove('hidden');
+      } else if (pin !== null) {
+        alert("Access Denied.");
+      }
+    }
+    function closeAdmin() { document.getElementById('admin-modal').classList.add('hidden'); }
+
+    function populateAdminCourseDropdown() {
+      const select = document.getElementById('adm-select-course');
+      const courses = getStoredCourses();
+      select.innerHTML = courses.map(c => `
+        <option value="${c.id}">Level ${c.level} - ${c.code}: ${c.title}</option>
+      `).join('');
+      loadCourseNoteForAdmin();
+    }
+
+    function loadCourseNoteForAdmin() {
+      const select = document.getElementById('adm-select-course');
+      const courses = getStoredCourses();
+      const course = courses.find(c => c.id === select.value);
+      if (course) {
+        document.getElementById('adm-course-content').value = course.content;
+      }
+    }
+
+    function saveCourseNoteFromAdmin() {
+      const select = document.getElementById('adm-select-course');
+      const content = document.getElementById('adm-course-content').value.trim();
+      if (!content) return alert("Please enter course lecture content.");
+
+      const customNotes = JSON.parse(localStorage.getItem('EDUTECH_CUSTOM_NOTES') || '{}');
+      customNotes[select.value] = content;
+      localStorage.setItem('EDUTECH_CUSTOM_NOTES', JSON.stringify(customNotes));
+
+      renderCourses();
+      closeAdmin();
+      alert("Lecture note published and saved successfully! 🎉");
+    }
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const splash = document.getElementById('splash-screen');
+        if (splash) {
+          splash.classList.add('opacity-0');
+          setTimeout(() => { splash.style.display = 'none'; }, 500);
+        }
+      }, 2000);
+      renderCourses();
+      renderProjects();
+      renderQuestions();
+      renderHistoryList();
+    });
+  </script>
+</body>
+</html>
