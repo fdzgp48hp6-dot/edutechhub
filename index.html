@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ha">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EdutechHub - Learn · Grow · Build Your Future</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background-color: #f1f5f9;
+      color: #1e293b;
+      min-height: 100vh;
+    }
+
+    /* ====== SPLASH / LOADING SCREEN ====== */
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #1e3a5f 0%, #0a192f 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    #splash-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .splash-logo {
+      background: #ffffff;
+      padding: 16px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .splash-logo svg {
+      width: 55px;
+      height: 55px;
+      stroke: #0284c7;
+    }
+    .splash-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+    .splash-title span {
+      color: #38bdf8;
+    }
+    .splash-subtitle {
+      font-size: 13px;
+      color: #94a3b8;
+      letter-spacing: 0.5px;
+      margin-bottom: 25px;
+    }
+    .loader-bar {
+      width: 180px;
+      height: 4px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+    .loader-progress {
+      width: 100%;
+      height: 100%;
+      background: #38bdf8;
+      border-radius: 10px;
+      animation: loadAnim 1.4s ease-in-out forwards;
+    }
+    @keyframes loadAnim {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(0); }
+    }
+
+    /* ====== APP HEADER ====== */
+    header {
+      background: #0a192f;
+      color: white;
+      text-align: center;
+      padding: 30px 15px 25px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      font-size: 24px;
+    }
+    header h1 span {
+      color: #38bdf8;
+    }
+    header p {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-top: 6px;
+    }
+
+    /* ====== MAIN CONTENT ====== */
+    main {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 25px 15px 60px;
+    }
+    .level-container {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid #e2e8f0;
+    }
+    .level-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0a192f;
+      border-bottom: 2px solid #38bdf8;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .course-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .course-card h4 {
+      font-size: 15px;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+    .course-card p {
+      font-size: 12px;
+      color: #64748b;
+      margin-bottom: 12px;
+    }
+    .btn-download {
+      text-decoration: none;
+      background: #0284c7;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 6px;
+      text-align: center;
+      transition: background 0.2s ease;
+    }
+    .btn-download:hover {
+      background: #0369a1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. SPLASH SCREEN (WANDAN NE KE MAQALEWA) -->
+  <div id="splash-screen">
+    <div class="splash-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+      </svg>
+    </div>
+    <div class="splash-title">Edutech<span>Hub</span></div>
+    <div class="splash-subtitle">Learn · Grow · Build Your Future</div>
+    <div class="loader-bar">
+      <div class="loader-progress"></div>
+    </div>
+  </div>
+
+  <!-- 2. HEADER -->
+  <header>
+    <h1>Edutech<span>Hub</span></h1>
+    <p>Educational Technology Course Materials & Repository</p>
+  </header>
+
+  <!-- 3. COURSES DAGA KASHI NA 1 ZUWA NA 4 -->
+  <main>
+
+    <!-- KASHI NA 1 (LEVEL 100) -->
+    <section class="level-container">
+      <div class="level-title">
+        <span>Level 100 Courses</span>
+      </div>
+      <div class="courses-grid">
+        <div class="course-card">
+          <h4>EDT 101: Introduction to Educational Technology</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+        <div class="course-card">
+          <h4>EDU 101: History of Education</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+        <div class="course-card">
+          <h4>GST 101: Use of English I</h4>
+          <p>Status: Compulsory | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- KASHI NA 2 (LEVEL 200) -->
+    <section class="level-container">
+      <div class="level-title">
+        <span>Level 200 Courses</span>
+      </div>
+      <div class="courses-grid">
+        <div class="course-card">
+          <h4>EDT 201: Principles of Instructional Media</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+        <div class="course-card">
+          <h4>EDT 203: Computer in Education</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+        <div class="course-card">
+          <h4>EDU 201: Educational Psychology</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- KASHI NA 3 (LEVEL 300) -->
+    <section class="level-container">
+      <div class="level-title">
+        <span>Level 300 Courses</span>
+      </div>
+      <div class="courses-grid">
+        <div class="course-card">
+          <h4>EDT 301: Instructional Systems Design</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+        <div class="course-card">
+          <h4>EDT 303: Graphics and Photography in Education</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+        <div class="course-card">
+          <h4>EDU 301: Teaching Practice (TP)</h4>
+          <p>Status: Compulsory | Units: 3</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- KASHI NA 4 (LEVEL 400) -->
+    <section class="level-container">
+      <div class="level-title">
+        <span>Level 400 Courses</span>
+      </div>
+      <div class="courses-grid">
+        <div class="course-card">
+          <h4>EDT 401: Advanced Instructional Design</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+        <div class="course-card">
+          <h4>EDT 403: Emerging Technologies in Education</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+        <div class="course-card">
+          <h4>EDT 405: Production of Low-Cost Instructional Media</h4>
+          <p>Status: Core | Units: 2</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+        <div class="course-card">
+          <h4>EDT 499: Research Project / Seminar</h4>
+          <p>Status: Compulsory | Units: 6</p>
+          <a href="#" class="btn-download">Sauke Material</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 4. JAVASCRIPT DIN DA KE KASHE LOADING SCREEN DIN -->
+  <script>
+    function hideSplashScreen() {
+      const splash = document.getElementById('splash-screen');
+      if (splash) {
+        splash.classList.add('hidden');
+        setTimeout(() => {
+          splash.remove(); // Yana cire shi gaba daya daga shafin
+        }, 600);
+      }
+    }
+
+    // Yana cirewa da zarar shafin ya gama budewa
+    window.addEventListener('load', () => {
+      setTimeout(hideSplashScreen, 1500);
+    });
+
+    // Kariyar gaggawa: ko da wani abu ya hana 'load' aiki, zai fita bayan second 2.5
+    setTimeout(hideSplashScreen, 2500);
+  </script>
+
+</body>
+</html>
